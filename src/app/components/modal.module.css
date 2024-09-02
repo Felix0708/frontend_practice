@@ -1,0 +1,38 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem 1rem 0 1rem;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+}
+
+.modalImage {
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
