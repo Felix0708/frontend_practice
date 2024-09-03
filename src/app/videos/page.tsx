@@ -1,42 +1,69 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import * as styles from './videos.css';
+import Modal from '../components/modal';
 
-const PHOTOS_API_URL = 'https://api.pexels.com/v1/curated';
+const VIDEOS_API_URL = 'https://api.pexels.com/videos/popular';
 
-const PhotosPage = () => {
-  const [photos, setPhotos] = useState<any[]>([]);
+const VideosPage = () => {
+  const [videos, setVideos] = useState<any[]>([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<any>(null);
+
+  const fetchVideos = async (pageNumber: number) => {
+    setLoading(true);
+    const response = await fetch(`${VIDEOS_API_URL}?page=${page}&per_page=10`, {
+      headers: {
+        Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY!,
+      },
+    });
+    const data = await response.json();
+    setVideos((prevVideos) => [...prevVideos, ...data.videos]);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const fetchPhotos = async () => {
-      const response = await fetch(`${PHOTOS_API_URL}?page=${page}&per_page=10`, {
-        headers: {
-          Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY!,
-        },
-      });
-
-      const data = await response.json();
-      setPhotos((prevPhotos) => [...prevPhotos, ...data.photos]);
-    };
-
-    fetchPhotos();
+    fetchVideos(page);
   }, [page]);
+
+  const handleScroll = () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !loading) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [loading]);
+
+  const openModal = (video: any) => {
+    setSelectedVideo(video);
+  };
+
+  const closeModal = () => {
+    setSelectedVideo(null);
+  };
 
   return (
     <div>
-      <h1>Photo List</h1>
-      <div>
-        {photos.map((photo) => (
-          <div key={photo.id}>
-            <img src={photo.src.medium} alt={photo.photographer} />
-            <p>{photo.photographer}</p>
+      <h1 className={styles.title}>Video List</h1>
+      <div className={styles.videoGrid}>
+        {videos.map((video) => (
+          <div key={video.id} className={styles.videoCard} onClick={() => openModal(video)}>
+            <img src={video.image} alt={video.user.name} className={styles.videoThumbnail} />
+            <p className={styles.videoText}>{video.user.name}</p>
           </div>
         ))}
       </div>
-      <button onClick={() => setPage(page + 1)}>Load More</button>
+      {loading && <p>Loading...</p>}
+      {selectedVideo && <Modal type="video" data={selectedVideo} onClose={closeModal} />}
     </div>
   );
 };
 
-export default PhotosPage;
+export default VideosPage;

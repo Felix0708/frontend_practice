@@ -1,21 +1,58 @@
 import React from "react";
-import styles from './Modal.module.css'
+import * as styles from './modal.css';
 
-interface ModalProps {
-  photo: any;
-  onClose: () => void;
+interface Photo {
+  src: { large: string };
+  photographer: string;
+  alt: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ photo, onClose }) => {
-  if(!photo) return null;
+interface Video {
+  video_files: Array<{
+    quality: string;
+    link: string;
+  }>;
+  user: {
+    name: string;
+    url: string;
+  };
+  video_pictures: Array<{
+    picture: string;
+  }>;
+}
 
+type ModalProps = {
+  type: 'photo' | 'video';
+  data: Photo | Video | null;
+  onClose: () => void;
+};
+
+const Modal: React.FC<ModalProps> = ({ type, data, onClose }) => {
+  if (!data) return null;
+  // 데이터 구조 확인
+  console.log('Modal data:', data);
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeButton} onClick={onClose}>✕</button>
-        <img src={photo.src.large} alt={photo.photographer} className={styles.modalImage} />
-        <h2>{photo.photographer}</h2>
-        <p>{photo.alt}</p>
+        {type === 'photo' && (
+          <>
+            <img src={(data as Photo).src.large} alt={(data as Photo).photographer} className={styles.modalImage} />
+            <h2>{(data as Photo).photographer}</h2>
+            <p>{(data as Photo).alt}</p>
+          </>
+        )}
+        {type === 'video' && (
+          <>
+            <video
+              src={(data as Video).video_files.find(vf => vf.quality === 'hd')?.link}
+              controls
+              className={styles.modalImage}
+            />
+            <h2>{(data as Video).user.name}</h2>
+            <p>url: {(data as Video).user.url}</p>
+          </>
+        )}
       </div>
     </div>
   );

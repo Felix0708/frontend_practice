@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import styles from './photos.module.css';
+import * as styles from './photos.css';
 import Modal from '../components/modal';
 
 const PHOTOS_API_URL = 'https://api.pexels.com/v1/curated';
@@ -55,13 +55,13 @@ const PhotosPage = () => {
       <div className={styles.photoGrid}>
         {photos.map((photo) => (
           <div key={photo.id} className={styles.photoCard} onClick={() => openModal(photo)}>
-            <img src={photo.src.medium} alt={photo.photographer} />
-            <p>{photo.photographer}</p>
+            <img src={photo.src.medium} alt={photo.photographer} className={styles.photoImage} />
+            <p className={styles.photoText}>{photo.photographer}</p>
           </div>
         ))}
       </div>
       {loading && <p>Loading...</p>}
-      {selectedPhoto && <Modal photo={selectedPhoto} onClose={closeModal} />}
+      {selectedPhoto && <Modal type="photo" data={selectedPhoto} onClose={closeModal} />}
     </div>
   );
 };
