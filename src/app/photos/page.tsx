@@ -14,7 +14,7 @@ const PhotosPage = () => {
   
   const fetchPhotos = async (pageNumber: number) => {
     setLoading(true);
-    const response = await fetch(`${PHOTOS_API_URL}?page=${page}&per_page=10`, {
+    const response = await fetch(`${PHOTOS_API_URL}?page=${pageNumber}`, {
       headers: {
         Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY!,
       },
@@ -54,13 +54,13 @@ const PhotosPage = () => {
       <h1 className={styles.title}>Photo List</h1>
       <div className={styles.photoGrid}>
         {photos.map((photo) => (
-          <div key={photo.id} className={styles.photoCard} onClick={() => openModal(photo)}>
+          <div key={`${photo.id}-${page}`} className={styles.photoCard} onClick={() => openModal(photo)}>
             <img src={photo.src.medium} alt={photo.photographer} className={styles.photoImage} />
             <p className={styles.photoText}>{photo.photographer}</p>
           </div>
         ))}
       </div>
-      {loading && <p>Loading...</p>}
+      {loading && <p className={styles.loadingText}>Loading...</p>}
       {selectedPhoto && <Modal type="photo" data={selectedPhoto} onClose={closeModal} />}
     </div>
   );

@@ -29,8 +29,7 @@ type ModalProps = {
 
 const Modal: React.FC<ModalProps> = ({ type, data, onClose }) => {
   if (!data) return null;
-  // 데이터 구조 확인
-  console.log('Modal data:', data);
+  
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>

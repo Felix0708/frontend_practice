@@ -14,7 +14,7 @@ const VideosPage = () => {
 
   const fetchVideos = async (pageNumber: number) => {
     setLoading(true);
-    const response = await fetch(`${VIDEOS_API_URL}?page=${page}&per_page=10`, {
+    const response = await fetch(`${VIDEOS_API_URL}?page=${pageNumber}`, {
       headers: {
         Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY!,
       },
@@ -54,13 +54,13 @@ const VideosPage = () => {
       <h1 className={styles.title}>Video List</h1>
       <div className={styles.videoGrid}>
         {videos.map((video) => (
-          <div key={video.id} className={styles.videoCard} onClick={() => openModal(video)}>
+          <div key={`${video.id}-${page}`} className={styles.videoCard} onClick={() => openModal(video)}>
             <img src={video.image} alt={video.user.name} className={styles.videoThumbnail} />
             <p className={styles.videoText}>{video.user.name}</p>
           </div>
         ))}
       </div>
-      {loading && <p>Loading...</p>}
+      {loading && <p className={styles.loadingText}>Loading...</p>}
       {selectedVideo && <Modal type="video" data={selectedVideo} onClose={closeModal} />}
     </div>
   );

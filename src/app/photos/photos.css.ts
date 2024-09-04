@@ -8,7 +8,7 @@ export const title = style({
 
 export const photoGrid = style({
   display: 'grid',
-  gridTemplateColumns: 'repeat(5, 1fr)',
+  gridTemplateColumns: 'repeat(4, 1fr)',
   gap: '3rem', // 카드 간의 공백
   padding: '2rem',
 });
@@ -34,4 +34,8 @@ export const photoText = style({
   margin: '0.7rem 0 0.2rem 0', // 텍스트 상하 공백
   fontSize: '0.8rem',
   color: '#333',
+});
+
+export const loadingText = style({
+  textAlign: 'center',
 });

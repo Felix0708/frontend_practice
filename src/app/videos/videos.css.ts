@@ -35,3 +35,7 @@ export const videoText = style({
   fontSize: '0.8rem',
   color: '#333',
 });
+
+export const loadingText = style({
+  textAlign: 'center',
+});
