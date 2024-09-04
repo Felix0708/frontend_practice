@@ -13,6 +13,9 @@ const HomePage = () => {
         <li>
           <Link href="/videos">Video List</Link>
         </li>
+        <li>
+          <Link href="/scraps">Scraps</Link>
+        </li>
       </ul>
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { useScrapStore } from '../../store/scrapStore';
 import { useEffect, useState } from 'react';
 import * as styles from './photos.css';
 import Modal from '../components/modal';
@@ -12,6 +13,8 @@ const PhotosPage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<any>(null);
   
+  const { scrapPhoto } = useScrapStore(); // zustand 훅에서 스크랩 기능 가져오기
+
   const fetchPhotos = async (pageNumber: number) => {
     setLoading(true);
     const response = await fetch(`${PHOTOS_API_URL}?page=${pageNumber}`, {
@@ -48,15 +51,25 @@ const PhotosPage = () => {
   const closeModal = () => {
     setSelectedPhoto(null);
   };
-
+  
+  const handleScrap = (photo: any) => {
+    scrapPhoto({ id: photo.id, type: 'photo', data: photo });
+  };
+  
   return (
     <div>
       <h1 className={styles.title}>Photo List</h1>
       <div className={styles.photoGrid}>
         {photos.map((photo) => (
-          <div key={`${photo.id}-${page}`} className={styles.photoCard} onClick={() => openModal(photo)}>
-            <img src={photo.src.medium} alt={photo.photographer} className={styles.photoImage} />
+          <div key={`${photo.id}-${page}`} className={styles.photoCard}>
+            <img 
+              src={photo.src.medium} 
+              alt={photo.photographer} 
+              className={styles.photoImage}
+              onClick={() => openModal(photo)}
+            />
             <p className={styles.photoText}>{photo.photographer}</p>
+            <button onClick={() => handleScrap(photo)}>Scrap</button>
           </div>
         ))}
       </div>
