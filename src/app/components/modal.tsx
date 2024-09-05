@@ -2,7 +2,7 @@ import React from "react";
 import * as styles from './modal.css';
 
 interface Photo {
-  src: { large: string };
+  src: { medium: string };
   photographer: string;
   alt: string;
 }
@@ -26,8 +26,8 @@ type ModalProps = {
   data: Photo | Video | null;
   onClose: () => void;
 };
-
 const Modal: React.FC<ModalProps> = ({ type, data, onClose }) => {
+  console.log(data)
   if (!data) return null;
   
   return (
@@ -36,7 +36,11 @@ const Modal: React.FC<ModalProps> = ({ type, data, onClose }) => {
         <button className={styles.closeButton} onClick={onClose}>✕</button>
         {type === 'photo' && (
           <>
-            <img src={(data as Photo).src.large} alt={(data as Photo).photographer} className={styles.modalImage} />
+            <img 
+              src={(data as Photo).src.medium} 
+              alt={(data as Photo).photographer} 
+              className={styles.modalImage} 
+            />
             <h2>{(data as Photo).photographer}</h2>
             <p>{(data as Photo).alt}</p>
           </>

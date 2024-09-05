@@ -55,7 +55,7 @@ const PhotosPage = () => {
   const handleScrap = (photo: any) => {
     scrapPhoto({ id: photo.id, type: 'photo', data: photo });
   };
-  
+
   return (
     <div>
       <h1 className={styles.title}>Photo List</h1>

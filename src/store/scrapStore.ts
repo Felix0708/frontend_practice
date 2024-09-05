@@ -1,5 +1,5 @@
 // src/store/scrapStore.ts
-import create from 'zustand';
+import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 type ScrapItem = {
@@ -19,13 +19,25 @@ type ScrapStore = {
 
 export const useScrapStore = create<ScrapStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       photos: [],
       videos: [],
-      scrapPhoto: (item) =>
-        set((state) => ({ photos: [...state.photos, item] })),
-      scrapVideo: (item) =>
-        set((state) => ({ videos: [...state.videos, item] })),
+      scrapPhoto: (item) => {
+        const { photos } = get();
+        const isAlreadyScrapped = photos.some((photo) => photo.id === item.id);
+
+        if (!isAlreadyScrapped) {
+          set((state) => ({ photos: [...state.photos, item] }));
+        }
+      },
+      scrapVideo: (item) => {
+        const { videos } = get();
+        const isAlreadyScrapped = videos.some((video) => video.id === item.id);
+
+        if (!isAlreadyScrapped) {
+          set((state) => ({ videos: [...state.videos, item] }));
+        }
+      },
       removePhoto: (id) =>
         set((state) => ({
           photos: state.photos.filter((photo) => photo.id !== id),

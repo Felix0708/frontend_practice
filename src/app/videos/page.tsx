@@ -1,5 +1,6 @@
 "use client";
 
+import { useScrapStore } from '../../store/scrapStore';
 import { useEffect, useState } from 'react';
 import * as styles from './videos.css';
 import Modal from '../components/modal';
@@ -11,6 +12,8 @@ const VideosPage = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+
+  const { scrapVideo } = useScrapStore(); // zustand 훅에서 스크랩 기능 가져오기
 
   const fetchVideos = async (pageNumber: number) => {
     setLoading(true);
@@ -49,14 +52,24 @@ const VideosPage = () => {
     setSelectedVideo(null);
   };
 
+  const handleScrap = (video: any) => {
+    scrapVideo({ id: video.id, type: 'video', data: video });
+  };
+
   return (
     <div>
       <h1 className={styles.title}>Video List</h1>
       <div className={styles.videoGrid}>
         {videos.map((video) => (
-          <div key={`${video.id}-${page}`} className={styles.videoCard} onClick={() => openModal(video)}>
-            <img src={video.image} alt={video.user.name} className={styles.videoThumbnail} />
+          <div key={`${video.id}-${page}`} className={styles.videoCard}>
+            <img 
+              src={video.image} 
+              alt={video.user.name} 
+              className={styles.videoThumbnail}
+              onClick={() => openModal(video)}
+            />
             <p className={styles.videoText}>{video.user.name}</p>
+            <button onClick={() => handleScrap(video)}>Scrap</button>
           </div>
         ))}
       </div>
