@@ -3,39 +3,56 @@ import { style } from '@vanilla-extract/css';
 
 export const title = style({
   textAlign: 'center',
-  margin: '2rem 0 0 0',
+  margin: '2rem 0 2rem 0',
 });
 
 export const photoGrid = style({
   display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',
-  gap: '3rem', // 카드 간의 공백
-  padding: '2rem',
+  gridTemplateColumns: 'repeat(5, 1fr);', // 카드 크기 조정
+  gap: '1.5rem', // 카드 간격 설정
 });
 
 export const photoCard = style({
-  background: '#fff',
-  borderRadius: '8px',
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  overflow: 'hidden',
-  textAlign: 'center',
-  padding: '8px', // 카드 내부 여백
-  boxSizing: 'border-box', // padding과 border가 width에 포함되도록 설정
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between', // 버튼과 설명을 적절히 분리
+  alignItems: 'center',
+  padding: '0.8rem',
+  margin: '0 auto',
+  backgroundColor: '#fff',
+  borderRadius: '10px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+  maxWidth: '200px',
+  height: '300px', // 카드 높이 고정
+  width: '250px', /* 카드의 가로 너비 고정 */
 });
 
 export const photoImage = style({
   width: '100%',
-  height: 'auto',
-  display: 'block',
-  objectFit: 'cover', // 이미지를 카드의 영역에 맞게 잘라서 채우기
+  height: '150px', // 이미지 높이 고정
+  objectFit: 'cover', // 이미지 비율 유지
+  borderRadius: '8px',
+  marginBottom: '0.5rem',
 });
 
 export const photoText = style({
-  margin: '0.7rem 0 0.2rem 0', // 텍스트 상하 공백
-  fontSize: '0.8rem',
-  color: '#333',
+  marginTop: '0.3rem',
+  fontSize: '0.9rem',
+  textAlign: 'center',
 });
 
 export const loadingText = style({
+  textAlign: 'center',
+});
+
+export const scrapButton = style({
+  padding: '0.4rem 0.8rem',
+  backgroundColor: 'blue',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  fontSize: '0.9rem',
+  width: '90%',
   textAlign: 'center',
 });

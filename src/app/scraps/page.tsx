@@ -1,15 +1,19 @@
 "use client";
 
 // src/app/scraps/ScrapPage.tsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useScrapStore } from '../../store/scrapStore';
+import { useNotificationStore } from '../../store/notificationStore';
 import * as styles from './scraps.css';
 import Modal from '../components/modal';
+import Toast from '../components/toast';
 
 const ScrapPage = () => {
   const { photos, videos, removePhoto, removeVideo } = useScrapStore();
-  const itemsPerPage = 4;
-  const pagesPerGroup = 4;
+  const { showMessage, clearMessage } = useNotificationStore();
+
+  const itemsPerPage = 5;
+  const pagesPerGroup = 5;
 
   const [photoPage, setPhotoPage] = useState(1);
   const [photoGroup, setPhotoGroup] = useState(0);
@@ -106,8 +110,29 @@ const ScrapPage = () => {
     setSelectedVideo(null);
   };
 
+  const handleRemovePhoto = (id: string) => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      removePhoto(id);
+      showMessage('사진이 삭제되었습니다.');
+    }
+  };
+
+  const handleRemoveVideo = (id: string) => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      removeVideo(id);
+      showMessage('비디오가 삭제되었습니다.');
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      clearMessage(); // 페이지를 떠날 때 알림 초기화
+    };
+  }, [clearMessage]);
+  
   return (
     <div>
+      <Toast /> {/* 알림 메시지 표시 */}
       <h1 className={styles.title}>Scrapped Items</h1>
 
       {/* 사진 섹션 */}
@@ -125,7 +150,7 @@ const ScrapPage = () => {
               <p className={styles.text}>{scrap.data.photographer}</p>
               <button
                 className={styles.removeButton}
-                onClick={() => removePhoto(scrap.id)}
+                onClick={() => handleRemovePhoto(scrap.id)}
               >
                 Remove
               </button>
@@ -178,7 +203,7 @@ const ScrapPage = () => {
               <p className={styles.text}>{scrap.data.user.name}</p>
               <button
                 className={styles.removeButton}
-                onClick={() => removeVideo(scrap.id)}
+                onClick={() => handleRemoveVideo(scrap.id)}
               >
                 Remove
               </button>

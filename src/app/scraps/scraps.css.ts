@@ -2,22 +2,22 @@
 import { style } from '@vanilla-extract/css';
 
 export const title = style({
-  fontSize: '2rem',
-  marginBottom: '1.5rem',
+  textAlign: 'center',
+  margin: '2rem 0 2rem 0',
 });
 
 export const section = style({
-  marginBottom: '2rem',
+  marginBottom: '1rem',
 });
 
 export const subtitle = style({
   fontSize: '1.5rem',
-  marginBottom: '1rem',
+  margin: '0 0 1rem 4rem',
 });
 
 export const grid = style({
   display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr);', // 카드 크기 조정
+  gridTemplateColumns: 'repeat(5, 1fr);', // 카드 크기 조정
   gap: '1.5rem', // 카드 간격 설정
 });
 
@@ -27,16 +27,13 @@ export const card = style({
   justifyContent: 'space-between', // 버튼과 설명을 적절히 분리
   alignItems: 'center',
   padding: '0.8rem',
+  margin: '0 auto',
   backgroundColor: '#fff',
   borderRadius: '10px',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
-  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
   maxWidth: '200px',
+  width: '250px', /* 카드의 가로 너비 고정 */
   height: '300px', // 카드 높이 고정
-  // ':hover': {
-  //   transform: 'translateY(-5px)',
-  //   boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1)',
-  // },
 });
 
 export const image = style({
