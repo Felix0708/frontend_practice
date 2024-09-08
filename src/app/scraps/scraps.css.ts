@@ -33,10 +33,10 @@ export const card = style({
   transition: 'transform 0.2s ease, box-shadow 0.2s ease',
   maxWidth: '200px',
   height: '300px', // 카드 높이 고정
-  ':hover': {
-    transform: 'translateY(-5px)',
-    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1)',
-  },
+  // ':hover': {
+  //   transform: 'translateY(-5px)',
+  //   boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1)',
+  // },
 });
 
 export const image = style({

@@ -26,8 +26,9 @@ type ModalProps = {
   data: Photo | Video | null;
   onClose: () => void;
 };
+
 const Modal: React.FC<ModalProps> = ({ type, data, onClose }) => {
-  console.log(data)
+  
   if (!data) return null;
   
   return (

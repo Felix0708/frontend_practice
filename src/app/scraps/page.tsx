@@ -129,9 +129,9 @@ const ScrapPage = () => {
               >
                 Remove
               </button>
-              {selectedPhoto && <Modal type="photo" data={selectedPhoto} onClose={closePhotoModal} />}
             </div>
           ))}
+          {selectedPhoto && <Modal type="photo" data={selectedPhoto} onClose={closePhotoModal} />}
         </div>
         {/* 페이지네이션 버튼 */}
         <div className={styles.pagination}>
@@ -182,9 +182,9 @@ const ScrapPage = () => {
               >
                 Remove
               </button>
-              {selectedVideo && <Modal type="video" data={selectedVideo} onClose={closeVideoModal} />}
             </div>
           ))}
+          {selectedVideo && <Modal type="video" data={selectedVideo} onClose={closeVideoModal} />}
         </div>
         {/* 페이지네이션 버튼 */}
         <div className={styles.pagination}>
