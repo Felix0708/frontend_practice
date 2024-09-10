@@ -5,7 +5,7 @@ import { useNotificationStore } from '../../store/notificationStore'; // 알림 
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import * as styles from './photos.css';
-import Modal from '../components/modal';
+import DetailModal from '../components/detailModal';
 import Toast from '../components/toast';
 
 const PHOTOS_CURATED_API_URL = 'https://api.pexels.com/v1/curated';
@@ -99,7 +99,7 @@ const PhotosPage = () => {
         ))}
       </div>
       {loading && <p className={styles.loadingText}>Loading...</p>}
-      {selectedPhoto && <Modal type="photo" data={selectedPhoto} onClose={closeModal} />}
+      {selectedPhoto && <DetailModal type="photo" data={selectedPhoto} onClose={closeModal} />}
     </div>
   );
 };

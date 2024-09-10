@@ -1,5 +1,5 @@
 import React from "react";
-import * as styles from './modal.css';
+import * as styles from './detailModal.css';
 
 interface Photo {
   src: { medium: string };
@@ -27,7 +27,7 @@ type ModalProps = {
   onClose: () => void;
 };
 
-const Modal: React.FC<ModalProps> = ({ type, data, onClose }) => {
+const DetailModal: React.FC<ModalProps> = ({ type, data, onClose }) => {
   
   if (!data) return null;
   
@@ -62,4 +62,4 @@ const Modal: React.FC<ModalProps> = ({ type, data, onClose }) => {
   );
 };
 
-export default Modal;
+export default DetailModal;

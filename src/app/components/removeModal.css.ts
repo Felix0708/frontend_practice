@@ -1,4 +1,3 @@
-// src/components/Modal.css.ts
 import { style } from '@vanilla-extract/css';
 
 export const overlay = style({

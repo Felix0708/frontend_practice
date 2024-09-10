@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import { useScrapStore } from '../../store/scrapStore';
 import { useNotificationStore } from '../../store/notificationStore';
 import * as styles from './scraps.css';
-import Modal from '../components/modal';
+import DetailModal from '../components/detailModal';
+import RemoveModal from '../components/removeModal';
 import Toast from '../components/toast';
 
 const ScrapPage = () => {
@@ -22,6 +23,11 @@ const ScrapPage = () => {
 
   const [selectedPhoto, setSelectedPhoto] = useState<any>(null);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+
+  const [selectedPhotoRemoveBtn, setselectedPhotoRemoveBtn] = useState(false);
+  const [selectedVideoRemoveBtn, setselectedVideoRemoveBtn] = useState(false);
+  const [deleteId, setdeleteId] = useState<string | null >(null);
+
 
   // 사진 페이지 그룹 관련 계산
   const totalPhotosPages = Math.ceil(photos.length / itemsPerPage);
@@ -51,7 +57,7 @@ const ScrapPage = () => {
   const handlePhotoPrevGroup = () => {
     if (photoGroup > 0) {
       setPhotoGroup(photoGroup - 1);
-      setPhotoPage(photoStartPage - pagesPerGroup + 3); // 이전 그룹 마지막 페이지로 이동
+      setPhotoPage(photoStartPage - pagesPerGroup + 4); // 이전 그룹 마지막 페이지로 이동
     }
   };
 
@@ -83,7 +89,7 @@ const ScrapPage = () => {
   const handleVideoPrevGroup = () => {
     if (videoGroup > 0) {
       setVideoGroup(videoGroup - 1);
-      setVideoPage(videoStartPage - pagesPerGroup + 3); // 이전 그룹 마지막 페이지로 이동
+      setVideoPage(videoStartPage - pagesPerGroup + 4); // 이전 그룹 마지막 페이지로 이동
     }
   };
 
@@ -110,17 +116,39 @@ const ScrapPage = () => {
     setSelectedVideo(null);
   };
 
-  const handleRemovePhoto = (id: string) => {
-    if (window.confirm('정말 삭제하시겠습니까?')) {
-      removePhoto(id);
-      showMessage('사진이 삭제되었습니다.');
+  const openRemovePhotoModal = (id: string) => {
+    setselectedPhotoRemoveBtn(true);
+    setdeleteId(id);
+  };
+
+  const closeRemovePhotoModal = () => {
+    setselectedPhotoRemoveBtn(false);
+  }
+
+  const handleRemovePhoto = () => {
+    if(deleteId) {
+      removePhoto(deleteId);
+      showMessage('사진이 삭제되었습니다');
+      setselectedPhotoRemoveBtn(false);
+      setdeleteId(null);
     }
   };
 
-  const handleRemoveVideo = (id: string) => {
-    if (window.confirm('정말 삭제하시겠습니까?')) {
-      removeVideo(id);
-      showMessage('비디오가 삭제되었습니다.');
+  const openRemoveVideoModal = (id: string) => {
+    setselectedVideoRemoveBtn(true);
+    setdeleteId(id);
+  };
+
+  const closeRemoveVideoModal = () => {
+    setselectedVideoRemoveBtn(false);
+  }
+
+  const handleRemoveVideo = () => {
+    if(deleteId) {
+      removeVideo(deleteId);
+      showMessage('비디오가 삭제되었습니다');
+      setselectedVideoRemoveBtn(false);
+      setdeleteId(null);
     }
   };
 
@@ -129,7 +157,7 @@ const ScrapPage = () => {
       clearMessage(); // 페이지를 떠날 때 알림 초기화
     };
   }, [clearMessage]);
-  
+
   return (
     <div>
       <Toast /> {/* 알림 메시지 표시 */}
@@ -150,13 +178,14 @@ const ScrapPage = () => {
               <p className={styles.text}>{scrap.data.photographer}</p>
               <button
                 className={styles.removeButton}
-                onClick={() => handleRemovePhoto(scrap.id)}
+                onClick={() => openRemovePhotoModal(scrap.id)}
               >
                 Remove
               </button>
             </div>
           ))}
-          {selectedPhoto && <Modal type="photo" data={selectedPhoto} onClose={closePhotoModal} />}
+          {selectedPhotoRemoveBtn && <RemoveModal isOpen={selectedPhotoRemoveBtn} onClose={closeRemovePhotoModal} onConfirm={handleRemovePhoto} />}
+          {selectedPhoto && <DetailModal type="photo" data={selectedPhoto} onClose={closePhotoModal} />}
         </div>
         {/* 페이지네이션 버튼 */}
         <div className={styles.pagination}>
@@ -203,13 +232,14 @@ const ScrapPage = () => {
               <p className={styles.text}>{scrap.data.user.name}</p>
               <button
                 className={styles.removeButton}
-                onClick={() => handleRemoveVideo(scrap.id)}
+                onClick={() => openRemoveVideoModal(scrap.id)}
               >
                 Remove
               </button>
             </div>
           ))}
-          {selectedVideo && <Modal type="video" data={selectedVideo} onClose={closeVideoModal} />}
+          {selectedVideoRemoveBtn && <RemoveModal isOpen={selectedVideoRemoveBtn} onClose={closeRemoveVideoModal} onConfirm={handleRemoveVideo} />}
+          {selectedVideo && <DetailModal type="video" data={selectedVideo} onClose={closeVideoModal} />}
         </div>
         {/* 페이지네이션 버튼 */}
         <div className={styles.pagination}>

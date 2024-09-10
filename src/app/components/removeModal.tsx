@@ -1,27 +1,26 @@
 // src/components/Modal.tsx
 import React from 'react';
-import * as styles from './confirmModal.css';
+import * as styles from './removeModal.css';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  message: string;
 }
 
-const ConfirmModal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirm, message }) => {
+const RemoveModal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null; // 모달이 열리지 않았으면 렌더링하지 않음
 
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <p className={styles.message}>{message}</p>
+        <p className={styles.message}>이 스크랩을 정말로 삭제하시겠습니까?</p>
         <div className={styles.buttons}>
-          <button className={styles.cancelButton} onClick={onClose}>
-            취소
-          </button>
           <button className={styles.confirmButton} onClick={onConfirm}>
             확인
+          </button>
+          <button className={styles.cancelButton} onClick={onClose}>
+            취소
           </button>
         </div>
       </div>
@@ -29,4 +28,4 @@ const ConfirmModal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirm, messag
   );
 };
 
-export default ConfirmModal;
+export default RemoveModal;

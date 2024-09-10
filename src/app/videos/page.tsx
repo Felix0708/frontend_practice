@@ -5,7 +5,7 @@ import { useNotificationStore } from '../../store/notificationStore'; // 알림 
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import * as styles from './videos.css';
-import Modal from '../components/modal';
+import DetailModal from '../components/detailModal';
 import Toast from '../components/toast';
 
 const VIDEOS_POPULAR_API_URL = 'https://api.pexels.com/videos/popular';
@@ -98,7 +98,7 @@ const VideosPage = () => {
         ))}
       </div>
       {loading && <p className={styles.loadingText}>Loading...</p>}
-      {selectedVideo && <Modal type="video" data={selectedVideo} onClose={closeModal} />}
+      {selectedVideo && <DetailModal type="video" data={selectedVideo} onClose={closeModal} />}
     </div>
   );
 };
