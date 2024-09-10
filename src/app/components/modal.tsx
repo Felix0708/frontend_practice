@@ -51,7 +51,7 @@ const Modal: React.FC<ModalProps> = ({ type, data, onClose }) => {
             <video
               src={(data as Video).video_files.find(vf => vf.quality === 'hd')?.link}
               controls
-              className={styles.modalImage}
+              className={styles.modalVideo} // 비디오에만 적용할 CSS 클래스
             />
             <h2>{(data as Video).user.name}</h2>
             <p>url: {(data as Video).user.url}</p>

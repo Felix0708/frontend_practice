@@ -12,7 +12,7 @@ export const section = style({
 
 export const subtitle = style({
   fontSize: '1.5rem',
-  margin: '0 0 1rem 4rem',
+  margin: '0 0 1rem 1vw',
 });
 
 export const grid = style({
