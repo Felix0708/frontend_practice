@@ -6,7 +6,7 @@ import { useScrapStore } from '../../store/scrapStore';
 import { useNotificationStore } from '../../store/notificationStore';
 import * as styles from './scraps.css';
 import DetailModal from '../components/detailModal';
-import RemoveModal from '../components/removeModal';
+import ConfirmModal from '../components/confirmModal';
 import Toast from '../components/toast';
 
 const ScrapPage = () => {
@@ -184,7 +184,7 @@ const ScrapPage = () => {
               </button>
             </div>
           ))}
-          {selectedPhotoRemoveBtn && <RemoveModal isOpen={selectedPhotoRemoveBtn} onClose={closeRemovePhotoModal} onConfirm={handleRemovePhoto} />}
+          {selectedPhotoRemoveBtn && <ConfirmModal isOpen={selectedPhotoRemoveBtn} onClose={closeRemovePhotoModal} onConfirm={handleRemovePhoto} />}
           {selectedPhoto && <DetailModal type="photo" data={selectedPhoto} onClose={closePhotoModal} />}
         </div>
         {/* 페이지네이션 버튼 */}
@@ -238,7 +238,7 @@ const ScrapPage = () => {
               </button>
             </div>
           ))}
-          {selectedVideoRemoveBtn && <RemoveModal isOpen={selectedVideoRemoveBtn} onClose={closeRemoveVideoModal} onConfirm={handleRemoveVideo} />}
+          {selectedVideoRemoveBtn && <ConfirmModal isOpen={selectedVideoRemoveBtn} onClose={closeRemoveVideoModal} onConfirm={handleRemoveVideo} />}
           {selectedVideo && <DetailModal type="video" data={selectedVideo} onClose={closeVideoModal} />}
         </div>
         {/* 페이지네이션 버튼 */}

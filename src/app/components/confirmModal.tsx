@@ -1,6 +1,6 @@
 // src/components/Modal.tsx
 import React from 'react';
-import * as styles from './removeModal.css';
+import * as styles from './confirmModal.css';
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,7 +8,7 @@ interface ModalProps {
   onConfirm: () => void;
 }
 
-const RemoveModal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirm }) => {
+const ConfirmModal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null; // 모달이 열리지 않았으면 렌더링하지 않음
 
   return (
@@ -28,4 +28,4 @@ const RemoveModal: React.FC<ModalProps> = ({ isOpen, onClose, onConfirm }) => {
   );
 };
 
-export default RemoveModal;
+export default ConfirmModal;

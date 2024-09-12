@@ -17,24 +17,44 @@ const VideosPage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
 
+  // 검색 상태 관리
+  const [query, setQuery] = useState('');
+  const [orientation, setOrientation] = useState('');
+  const [isSearchMode, setIsSearchMode] = useState(false); // 검색 모드인지 여부
+
   const { videos: scrappedVideos, scrapVideo } = useScrapStore(); // zustand 훅에서 스크랩 기능 가져오기
   const { showMessage, clearMessage } = useNotificationStore();
   
   const fetchVideos = async (pageNumber: number) => {
     setLoading(true);
-    const response = await fetch(`${VIDEOS_POPULAR_API_URL}?page=${pageNumber}`, {
+    let url = isSearchMode
+      ? `${VIDEOS_SEARCH_API_URL}?query=${query}&orientation=${orientation}&page=${pageNumber}`
+      : `${VIDEOS_POPULAR_API_URL}?page=${pageNumber}`;
+    const response = await fetch(url, {
       headers: {
         Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY!,
       },
     });
     const data = await response.json();
-    setVideos((prevVideos) => [...prevVideos, ...data.videos]);
+    // 검색 결과가 없고, 첫 번째 페이지에서만 큐레이션 호출
+    if (isSearchMode && data.videos.length === 0 && pageNumber === 1) {
+      setIsSearchMode(false); // 검색 모드를 활성화
+      showMessage('검색 결과가 없습니다. 다시 검색해주십시오');
+    }
+    else if (isSearchMode && data.videos.length !== 0 && pageNumber === 1) {
+      setVideos([]); // 기존 비디오 리스트 초기화
+      setVideos((prevVideos) => [...prevVideos, ...data.videos]);
+    } 
+    else {
+      // 검색 결과나 큐레이션 비디오을 페이지에 추가
+      setVideos((prevVideos) => [...prevVideos, ...data.videos]);
+    }
     setLoading(false);
   };
 
   useEffect(() => {
     fetchVideos(page);
-  }, [page]);
+  }, [page, isSearchMode]);
 
   const handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !loading) {
@@ -68,6 +88,16 @@ const VideosPage = () => {
     }
   };
 
+  // 검색 버튼 클릭 핸들러
+  const handleSearch = () => {
+    if (!query.trim()) { // query가 비어있을 경우
+      showMessage('검색어를 입력해주세요.');
+      return;
+    }
+    setIsSearchMode(true); // 검색 모드 활성화
+    setPage(1); // 페이지 초기화
+  };
+
   useEffect(() => {
     return () => {
       clearMessage(); // 페이지를 떠날 때 알림 초기화
@@ -77,7 +107,26 @@ const VideosPage = () => {
   return (
     <div>
       <Toast /> {/* 알림 메시지 표시 */}
-      <h1 className={styles.title}>Video List</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Video List</h1>
+        <div className={styles.searchContainer}>
+          <input 
+            type="text" 
+            placeholder="Search videos..." 
+            value={query} 
+            onChange={(e) => setQuery(e.target.value)}
+            className={styles.searchInput}
+          />
+          <select value={orientation} onChange={(e) => setOrientation(e.target.value)}>
+            <option value="">Orientation</option>
+            <option value="landscape">Landscape</option>
+            <option value="portrait">Portrait</option>
+            <option value="square">Square</option>
+          </select>
+          <button onClick={handleSearch} className={styles.searchButton}>Search</button>
+        </div>
+      </div>
+
       <div className={styles.videoGrid}>
         {videos.map((video) => (
           <div key={uuidv4()} className={styles.videoCard}>
