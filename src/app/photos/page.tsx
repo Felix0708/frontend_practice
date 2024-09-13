@@ -14,6 +14,7 @@ const PHOTOS_SEARCH_API_URL = 'https://api.pexels.com/v1/search';
 const PhotosPage = () => {
   const [photos, setPhotos] = useState<any[]>([]);
   const [page, setPage] = useState(1);
+  const [searchPage, setSearchPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<any>(null);
   
@@ -94,7 +95,6 @@ const PhotosPage = () => {
 
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
-    setIsSearchMode(false); // 검색 모드를 활성화
     if (!query.trim()) { // query가 비어있을 경우
       showMessage('검색어를 입력해주세요.');
       return;
