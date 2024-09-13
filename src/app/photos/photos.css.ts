@@ -1,11 +1,31 @@
 // src/app/photos/photos.css.ts
 import { style } from '@vanilla-extract/css';
+import exp from 'constants';
 
 export const header = style({
   display: 'flex',
   justifyContent: 'space-between', // 제목과 검색창을 양쪽에 배치
-  alignItems: 'center',
+  // alignItems: 'center',
   marginBottom: '2rem',
+});
+
+export const title = style({
+  // textAlign: 'center',
+  margin: '2rem 0 2rem 4rem',
+});
+
+export const headerRightContents = style({
+  display: 'column',
+});
+
+export const backButton = style({
+  padding: '0.5rem 1rem',
+  backgroundColor: '#ff6b6b', // 버튼 색상
+  color: '#fff',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  // margin: '3rem 1rem 0 0',
 });
 
 export const searchContainer = style({
@@ -27,11 +47,6 @@ export const searchButton = style({
   border: 'none',
   borderRadius: '5px',
   cursor: 'pointer',
-});
-
-export const title = style({
-  textAlign: 'center',
-  margin: '2rem 0 2rem 4rem',
 });
 
 export const photoGrid = style({

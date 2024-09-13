@@ -8,6 +8,16 @@ export const header = style({
   marginBottom: '2rem',
 });
 
+export const backButton = style({
+  padding: '0.5rem 1rem',
+  backgroundColor: '#ff6b6b', // 버튼 색상
+  color: '#fff',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  marginLeft: '1rem', // 제목 옆에 배치
+});
+
 export const searchContainer = style({
   display: 'flex',
   gap: '0.5rem',
