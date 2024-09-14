@@ -1,21 +1,24 @@
 // src/app/photos/photos.css.ts
 import { style } from '@vanilla-extract/css';
-import exp from 'constants';
 
 export const header = style({
   display: 'flex',
   justifyContent: 'space-between', // 제목과 검색창을 양쪽에 배치
   // alignItems: 'center',
-  marginBottom: '2rem',
+  marginBottom: '3vh',
 });
 
 export const title = style({
   // textAlign: 'center',
-  margin: '2rem 0 2rem 4rem',
+  margin: '3vh 0 1.5vh 3vw',
 });
 
 export const headerRightContents = style({
-  display: 'column',
+  display: 'flex',
+  flexDirection: 'column', // 버튼과 검색창을 세로로 배치
+  alignItems: 'flex-end', // 오른쪽 정렬 유지
+  gap: '1vh', // 버튼과 검색창 사이의 간격 조정
+  margin: '6vh 3vw 0 0',
 });
 
 export const backButton = style({
@@ -25,13 +28,11 @@ export const backButton = style({
   border: 'none',
   borderRadius: '5px',
   cursor: 'pointer',
-  // margin: '3rem 1rem 0 0',
 });
 
 export const searchContainer = style({
   display: 'flex',
-  gap: '0.5rem',
-  margin: '5rem 3.5rem 0 0',
+  gap: '0.5vw',
 });
 
 export const searchInput = style({
@@ -52,7 +53,7 @@ export const searchButton = style({
 export const photoGrid = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(5, 1fr);', // 카드 크기 조정
-  gap: '1.5rem', // 카드 간격 설정
+  gap: '1.5vw', // 카드 간격 설정
 });
 
 export const photoCard = style({
@@ -79,7 +80,7 @@ export const photoImage = style({
 });
 
 export const photoText = style({
-  marginTop: '0.3rem',
+  marginTop: '0.3vh',
   fontSize: '0.9rem',
   textAlign: 'center',
 });

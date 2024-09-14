@@ -1,24 +1,44 @@
 // src/app/scraps/scraps.css.ts
 import { style } from '@vanilla-extract/css';
 
+export const header = style({
+  display: 'flex',
+  justifyContent: 'space-between', // 제목과 검색창을 양쪽에 배치
+  // alignItems: 'center',
+  marginBottom: '3vh',
+});
+
 export const title = style({
-  textAlign: 'center',
-  margin: '2rem 0 2rem 0',
+  // textAlign: 'center',
+  margin: '2vh 0 2vh 1vw',
+});
+
+export const headerRightContents = style({
+  margin: '6vh 1vw 0 0',
+});
+
+export const backButton = style({
+  padding: '0.5rem 1rem',
+  backgroundColor: '#ff6b6b', // 버튼 색상
+  color: '#fff',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
 });
 
 export const section = style({
-  marginBottom: '1rem',
+  marginBottom: '1vh',
 });
 
 export const subtitle = style({
   fontSize: '1.5rem',
-  margin: '0 0 1rem 1vw',
+  margin: '0 0 1vh 1vw',
 });
 
 export const grid = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(5, 1fr);', // 카드 크기 조정
-  gap: '1.5rem', // 카드 간격 설정
+  gap: '1.5vw', // 카드 간격 설정
 });
 
 export const card = style({
@@ -41,7 +61,7 @@ export const image = style({
   height: '150px', // 이미지 높이 고정
   objectFit: 'cover', // 이미지 비율 유지
   borderRadius: '8px',
-  marginBottom: '0.5rem',
+  marginBottom: '0.5vh',
 });
 
 export const video = style({
@@ -49,11 +69,11 @@ export const video = style({
   height: '150px', // 이미지 높이 고정
   objectFit: 'cover', // 이미지 비율 유지
   borderRadius: '8px',
-  marginBottom: '0.5rem',
+  marginBottom: '0.5vh',
 });
 
 export const text = style({
-  marginTop: '0.3rem',
+  marginTop: '0.3vh',
   fontSize: '0.9rem',
   textAlign: 'center',
 });
@@ -74,12 +94,12 @@ export const pagination = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '1rem',
+  marginTop: '1.5vh',
 });
 
 export const pageButton = style({
   padding: '0.6rem 1rem 0.6rem 1rem',
-  margin: '0 0.5rem',
+  margin: '0 0.5vw',
   border: 'none',
   backgroundColor: '#e0e0e0',
   cursor: 'pointer',
@@ -93,7 +113,7 @@ export const active = style({
 
 export const arrowButton = style({
   padding: '0.3rem 0.7rem 0.5rem 0.7rem',
-  margin: '0 0.5rem',
+  margin: '0 0.5vw',
   border: 'none',
   backgroundColor: '#e0e0e0',
   cursor: 'pointer',

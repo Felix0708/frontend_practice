@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import { useScrapStore } from '../../store/scrapStore';
 import { useNotificationStore } from '../../store/notificationStore';
+import { useRouter } from 'next/navigation'; // useRouter 가져오기
 import * as styles from './scraps.css';
 import DetailModal from '../components/detailModal';
 import ConfirmModal from '../components/confirmModal';
@@ -28,6 +29,12 @@ const ScrapPage = () => {
   const [selectedVideoRemoveBtn, setselectedVideoRemoveBtn] = useState(false);
   const [deleteId, setdeleteId] = useState<string | null >(null);
 
+  const router = useRouter(); // 라우터 훅 사용
+
+  // 메인 페이지로 돌아가는 함수
+  const goToMainPage = () => {
+    router.push('/'); // 메인 페이지로 이동
+  };
 
   // 사진 페이지 그룹 관련 계산
   const totalPhotosPages = Math.ceil(photos.length / itemsPerPage);
@@ -161,7 +168,12 @@ const ScrapPage = () => {
   return (
     <div>
       <Toast /> {/* 알림 메시지 표시 */}
-      <h1 className={styles.title}>Scrapped Items</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Scrapped Items</h1>
+        <div className={styles.headerRightContents}>
+          <button onClick={goToMainPage} className={styles.backButton}>메인으로 돌아가기</button> {/* 돌아가기 버튼 */}
+        </div>
+      </div>
 
       {/* 사진 섹션 */}
       <section className={styles.section}>

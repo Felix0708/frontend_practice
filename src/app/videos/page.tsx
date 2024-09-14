@@ -151,23 +151,25 @@ const VideosPage = () => {
       <Toast /> {/* 알림 메시지 표시 */}
       <div className={styles.header}>
         <h1 className={styles.title}>Video List</h1>
-        <button onClick={goToMainPage} className={styles.backButton}>메인으로 돌아가기</button> {/* 돌아가기 버튼 */}
-        <div className={styles.searchContainer}>
-          <input 
-            type="text" 
-            placeholder="Search videos..." 
-            value={query} 
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown} // 엔터 감지 이벤트 추가
-            className={styles.searchInput}
-          />
-          <select value={orientation} onChange={(e) => setOrientation(e.target.value)}>
-            <option value="">Orientation</option>
-            <option value="landscape">Landscape</option>
-            <option value="portrait">Portrait</option>
-            <option value="square">Square</option>
-          </select>
-          <button onClick={handleSearch} className={styles.searchButton}>Search</button>
+        <div className={styles.headerRightContents}>
+          <button onClick={goToMainPage} className={styles.backButton}>메인으로 돌아가기</button> {/* 돌아가기 버튼 */}
+          <div className={styles.searchContainer}>
+            <input 
+              type="text" 
+              placeholder="Search videos..." 
+              value={query} 
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown} // 엔터 감지 이벤트 추가
+              className={styles.searchInput}
+              />
+            <select value={orientation} onChange={(e) => setOrientation(e.target.value)}>
+              <option value="">Orientation</option>
+              <option value="landscape">Landscape</option>
+              <option value="portrait">Portrait</option>
+              <option value="square">Square</option>
+            </select>
+            <button onClick={handleSearch} className={styles.searchButton}>Search</button>
+          </div>
         </div>
       </div>
 
