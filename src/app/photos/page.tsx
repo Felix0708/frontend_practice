@@ -5,6 +5,7 @@ import { useNotificationStore } from '../../store/notificationStore'; // 알림 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'; // useRouter 가져오기
 import { v4 as uuidv4 } from 'uuid';
+import { useQuery } from "@tanstack/react-query";
 import * as styles from './photos.css';
 import DetailModal from '../components/detailModal';
 import Toast from '../components/toast';
@@ -131,7 +132,6 @@ const PhotosPage = () => {
       showMessage('검색어를 입력해주세요.');
       return;
     }
-    console.log('Search triggered with query:', query); // 디버깅용 로그
     setIsSearchMode(1); // 검색 모드 활성화
     setSearchPage(1); // 페이지 초기화
     setCuratedPage(1); // 페이지 초기화
@@ -158,6 +158,7 @@ const PhotosPage = () => {
           <button onClick={goToMainPage} className={styles.backButton}>메인으로 돌아가기</button> {/* 돌아가기 버튼 */}
           <div className={styles.searchContainer}>
             <input 
+              id='inputTag'
               type="text" 
               placeholder="Search photos..." 
               value={query} 
@@ -165,13 +166,13 @@ const PhotosPage = () => {
               onKeyDown={handleKeyDown} // 엔터 감지 이벤트 추가
               className={styles.searchInput}
             />
-            <select value={orientation} onChange={(e) => setOrientation(e.target.value)}>
+            <select id='selectTag1' value={orientation} onChange={(e) => setOrientation(e.target.value)}>
               <option value="">Orientation</option>
               <option value="landscape">Landscape</option>
               <option value="portrait">Portrait</option>
               <option value="square">Square</option>
             </select>
-            <select value={color} onChange={(e) => setColor(e.target.value)}>
+            <select id='selectTag2' value={color} onChange={(e) => setColor(e.target.value)}>
               <option value="">Color</option>
               <option value="red">Red</option>
               <option value="orange">Orange</option>

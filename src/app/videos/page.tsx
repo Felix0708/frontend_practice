@@ -128,7 +128,6 @@ const VideosPage = () => {
       showMessage('검색어를 입력해주세요.');
       return;
     }
-    console.log('Search triggered with query:', query); // 디버깅용 로그
     setIsSearchMode(1); // 검색 모드 활성화
     setSearchPage(1); // 페이지 초기화
     setPopularPage(1); // 페이지 초기화
@@ -155,6 +154,7 @@ const VideosPage = () => {
           <button onClick={goToMainPage} className={styles.backButton}>메인으로 돌아가기</button> {/* 돌아가기 버튼 */}
           <div className={styles.searchContainer}>
             <input 
+              id='inputTag'
               type="text" 
               placeholder="Search videos..." 
               value={query} 
@@ -162,7 +162,7 @@ const VideosPage = () => {
               onKeyDown={handleKeyDown} // 엔터 감지 이벤트 추가
               className={styles.searchInput}
               />
-            <select value={orientation} onChange={(e) => setOrientation(e.target.value)}>
+            <select id='selectTag' value={orientation} onChange={(e) => setOrientation(e.target.value)}>
               <option value="">Orientation</option>
               <option value="landscape">Landscape</option>
               <option value="portrait">Portrait</option>
