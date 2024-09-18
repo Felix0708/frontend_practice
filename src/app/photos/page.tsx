@@ -13,6 +13,15 @@ import Toast from '../components/toast';
 const PHOTOS_CURATED_API_URL = 'https://api.pexels.com/v1/curated';
 const PHOTOS_SEARCH_API_URL = 'https://api.pexels.com/v1/search';
 
+const fetchPhotos = async (url: string, pageNumber: number) => {
+  const response = await fetch(`${url}?page=${pageNumber}`, {
+    headers: {
+      Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY!,
+    },
+  });
+  return response.json();
+};
+
 const PhotosPage = () => {
   const [photos, setPhotos] = useState<any[]>([]);
   const [curatedPage, setCuratedPage] = useState(1);
@@ -35,6 +44,20 @@ const PhotosPage = () => {
   const goToMainPage = () => {
     router.push('/'); // 메인 페이지로 이동
   };
+
+  // const { data, error, isLoading } = useQuery(
+  //   queryKey, // 필수: 쿼리를 구별하는 고유 키 (배열 또는 문자열 가능)
+  //   queryFn,  // 필수: 데이터를 가져오는 비동기 함수
+  //   options?  // 선택: 쿼리의 동작을 제어하는 객체
+  // );
+
+  const {data: curatedPhotos} = useQuery({
+    queryKey: ["curatePhots", curatedPage],
+    queryFn: () => fetchPhotos(PHOTOS_CURATED_API_URL, curatedPage),
+    {
+      
+    }
+  })
 
   const fetchCuratedPhotos = async (pageNumber: number) => {
     setLoading(true);
