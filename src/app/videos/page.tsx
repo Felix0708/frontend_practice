@@ -151,7 +151,7 @@ const VideosPage = () => {
       <div className={styles.header}>
         <h1 className={styles.title}>Video List</h1>
         <div className={styles.headerRightContents}>
-          <button onClick={goToMainPage} className={styles.backButton}>메인으로 돌아가기</button> {/* 돌아가기 버튼 */}
+          <button onClick={goToMainPage} className={styles.backButton}>메인으로 돌아가기</button>
           <div className={styles.searchContainer}>
             <input 
               id='inputTag'
@@ -159,7 +159,7 @@ const VideosPage = () => {
               placeholder="Search videos..." 
               value={query} 
               onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown} // 엔터 감지 이벤트 추가
+              onKeyDown={handleKeyDown}
               className={styles.searchInput}
               />
             <select id='selectTag' value={orientation} onChange={(e) => setOrientation(e.target.value)}>

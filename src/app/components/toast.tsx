@@ -1,7 +1,7 @@
 // src/components/Toast.tsx
 import React, { useEffect } from 'react';
 import { useNotificationStore } from '../../store/notificationStore';
-import * as styles from './toast.css'; // Toast 스타일링
+import * as styles from './toast.css';
 
 const Toast = () => {
   const { message, clearMessage } = useNotificationStore();

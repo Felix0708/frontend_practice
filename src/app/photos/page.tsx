@@ -5,22 +5,12 @@ import { useNotificationStore } from '../../store/notificationStore'; // 알림 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'; // useRouter 가져오기
 import { v4 as uuidv4 } from 'uuid';
-import { useQuery } from "@tanstack/react-query";
 import * as styles from './photos.css';
 import DetailModal from '../components/detailModal';
 import Toast from '../components/toast';
 
 const PHOTOS_CURATED_API_URL = 'https://api.pexels.com/v1/curated';
 const PHOTOS_SEARCH_API_URL = 'https://api.pexels.com/v1/search';
-
-const fetchPhotos = async (url: string, pageNumber: number) => {
-  const response = await fetch(`${url}?page=${pageNumber}`, {
-    headers: {
-      Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY!,
-    },
-  });
-  return response.json();
-};
 
 const PhotosPage = () => {
   const [photos, setPhotos] = useState<any[]>([]);
@@ -44,20 +34,6 @@ const PhotosPage = () => {
   const goToMainPage = () => {
     router.push('/'); // 메인 페이지로 이동
   };
-
-  // const { data, error, isLoading } = useQuery(
-  //   queryKey, // 필수: 쿼리를 구별하는 고유 키 (배열 또는 문자열 가능)
-  //   queryFn,  // 필수: 데이터를 가져오는 비동기 함수
-  //   options?  // 선택: 쿼리의 동작을 제어하는 객체
-  // );
-
-  const {data: curatedPhotos} = useQuery({
-    queryKey: ["curatePhots", curatedPage],
-    queryFn: () => fetchPhotos(PHOTOS_CURATED_API_URL, curatedPage),
-    {
-      
-    }
-  })
 
   const fetchCuratedPhotos = async (pageNumber: number) => {
     setLoading(true);
@@ -111,7 +87,7 @@ const PhotosPage = () => {
     }
   }, [curatedPage, searchPage, isSearchMode]);
 
-  const handleScroll = () => {
+  const handleScroll = () => {  // 높이 측정
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !loading) {
       if (isSearchMode == 1 || isSearchMode == 2) {
         setSearchPage((prevPage) => prevPage + 1);
@@ -178,7 +154,7 @@ const PhotosPage = () => {
       <div className={styles.header}>
         <h1 className={styles.title}>Photo List</h1>
         <div className={styles.headerRightContents}>
-          <button onClick={goToMainPage} className={styles.backButton}>메인으로 돌아가기</button> {/* 돌아가기 버튼 */}
+          <button onClick={goToMainPage} className={styles.backButton}>메인으로 돌아가기</button>
           <div className={styles.searchContainer}>
             <input 
               id='inputTag'
@@ -186,7 +162,7 @@ const PhotosPage = () => {
               placeholder="Search photos..." 
               value={query} 
               onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown} // 엔터 감지 이벤트 추가
+              onKeyDown={handleKeyDown}
               className={styles.searchInput}
             />
             <select id='selectTag1' value={orientation} onChange={(e) => setOrientation(e.target.value)}>
